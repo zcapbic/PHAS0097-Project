@@ -9,7 +9,7 @@ variable    dt equal 4.0
 variable    p equal 200     # correlation length
 variable    s equal 10      # sample interval
 variable    d equal $p*$s   # dump interval
-variable r equal 206
+variable r equal 41026
 
 # convert from LAMMPS real units to SI
 
