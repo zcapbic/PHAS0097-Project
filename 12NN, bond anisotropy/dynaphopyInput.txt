@@ -1,0 +1,23 @@
+STRUCTURE FILE POSCAR
+POSCAR_unitcell.txt
+
+FORCE SETS
+FORCE_SETS
+
+PRIMITIVE MATRIX
+1.0 0.0 0.0
+0.0 1.0 0.0
+0.0 0.0 1.0
+
+SUPERCELL MATRIX PHONOPY
+5 0 0
+0 5 0
+0 0 5
+
+BANDS
+0.0,   0.0,   0.0         0.5,   0.0,  0.0     : GAMMA, X
+0.5,   0.0,   0.0         0.0,   0.0,  0.0     : X, GAMMA
+0.0,   0.0,   0.0         0.0,   0.5,  0.0     : GAMMA, X
+0.0,   0.5,   0.0         0.0,   0.0,  0.0     : X, GAMMA
+0.0,   0.0,   0.0         0.0,   0.0,  0.5     : GAMMA, X
+0.0,   0.0,   0.5         0.0,   0.0,  0.0     : X, GAMMA
