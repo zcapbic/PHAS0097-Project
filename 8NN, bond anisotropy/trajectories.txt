@@ -1,0 +1,29 @@
+units metal
+atom_style atomic
+boundary p p p
+
+read_data supercell
+
+mass 1 39.948
+mass 2 100.0
+
+pair_style lj/cut 13.0
+pair_coeff 1 1 0.02066 3.405
+pair_coeff 1 2 0.01033 3.405
+pair_coeff 2 2 0.01033 3.405
+
+neighbor 2.0 bin
+neigh_modify every 1 delay 0 check yes
+
+timestep 0.001          # ps in metal units
+
+velocity all create 70 12345 mom yes rot no dist gaussian
+fix 1 all nvt temp 70 10 0.1
+
+dump         dynaphopy all custom 5 traj.lammpstrj vx vy vz
+dump_modify  dynaphopy sort id
+
+run 50000
+
+unfix 1
+undump dynaphopy
