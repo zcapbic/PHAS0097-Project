@@ -1,0 +1,100 @@
+LAMMPS (10 Dec 2025)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread.
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from C:\Users\mohia\AppData\Local\LAMMPS 64-bit 10Dec2025-MSMPI with Python\plugins
+units metal
+atom_style atomic
+boundary p p p
+
+read_data supercell
+Reading data file ...
+  triclinic box = (0 0 0) to (26.88 26.88 26.88) with tilt (1.6459253e-15 1.6459253e-15 2.9842795e-15)
+  1 by 1 by 3 MPI processor grid
+  reading atom labelmap ...
+  reading atoms ...
+  500 atoms
+  read_data CPU = 0.009 seconds
+
+mass 1 39.948
+
+pair_style lj/cut 13.0
+pair_coeff * * 0.01033 3.405
+
+neighbor 2.0 bin
+neigh_modify every 1 delay 0 check yes
+
+timestep 0.001          # ps in metal units
+
+velocity all create 70 12345 mom yes rot no dist gaussian
+fix 1 all nvt temp 70 10 0.1
+
+dump         dynaphopy all custom 5 traj.lammpstrj vx vy vz
+dump_modify  dynaphopy sort id
+
+run 50000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
+
+@Article{Gissinger24,
+ author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
+ title = {Type Label Framework for Bonded Force Fields in LAMMPS},
+ journal = {J. Phys. Chem. B},
+ year =    2024,
+ volume =  128,
+ number =  13,
+ pages =   {3282--3297}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Generated 0 of 0 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 15
+  ghost atom cutoff = 15
+  binsize = 7.5, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton/tri
+      stencil: half/bin/3d/tri
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 3.182 | 3.191 | 3.196 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   70            -42.855722      0             -38.340665     -1307.2654    
+     50000   10.181644     -42.239899      0             -41.583175     -1233.946     
+Loop time of 36.6224 on 3 procs for 50000 steps with 500 atoms
+
+Performance: 117.961 ns/day, 0.203 hours/ns, 1365.286 timesteps/s, 682.643 katom-step/s
+87.4% CPU use with 3 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 21.083     | 22.68      | 24.046     |  25.6 | 61.93
+Neigh   | 0.18028    | 0.1934     | 0.20022    |   2.1 |  0.53
+Comm    | 6.5715     | 7.9428     | 9.5283     |  43.2 | 21.69
+Output  | 4.3731     | 4.6802     | 5.0064     |  12.0 | 12.78
+Modify  | 0.42991    | 0.4429     | 0.4517     |   1.4 |  1.21
+Other   |            | 0.6832     |            |       |  1.87
+
+Nlocal:        166.667 ave         178 max         150 min
+Histogram: 1 0 0 0 0 0 0 1 0 1
+Nghost:        3006.67 ave        3158 max        2931 min
+Histogram: 2 0 0 0 0 0 0 0 0 1
+Neighs:        30477.3 ave       32568 max       27436 min
+Histogram: 1 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 91432
+Ave neighs/atom = 182.864
+Neighbor list builds = 78
+Dangerous builds = 0
+
+unfix 1
+undump dynaphopy
+Total wall time: 0:00:36
